@@ -1,0 +1,43 @@
+<!-- pages/search/index.wxml -->
+<view class="searchContainer">
+    <!-- 搜索框 -->
+    <view class="header">
+        <view class="inputContainer">
+            <view class="searchIcon iconfont icon-sousuo"></view>
+            <input class="searchInput"  value="{{searchContent}}" type="text" bindinput="handleInput" placeholder="{{placeHolderContent}}" placeholder-class="input-placeholder" />
+            <view class="deleteIcon iconfont icon-shanchu1" bindtap="handleDelete" wx:if="{{searchContent}}"></view>
+        </view>
+        <view class="cancel" bind:tap="handleCancel">取消</view>
+    </view>
+    <block wx:if="{{searchList.length}}">
+        <!-- 搜索显示 -->
+        <view class="showSearchContainer">
+            <view class="searchContent">搜索内容：{{searchContent}}</view>
+            <view class="searchContentList">
+                <view class="searchItem" wx:for="{{searchList}}" wx:key="id">
+                    <text class="iconfont icon-sousuo"></text>
+                    <text class="content">{{item.name}}</text>
+                </view>
+            </view>
+        </view>
+    </block>
+    <block wx:else>
+        <!-- 搜索历史记录 -->
+        <view class="history" wx:if="{{historyList.length}}">
+            <view class="hisTitle">历史:</view>
+            <view class="historyItem" wx:for="{{historyList}}" wx:key="item"> {{item}}</view>
+            <view class="delete iconfont icon-shanchu" bind:tap="clearHistoryList"></view>
+        </view>
+        <!-- 热搜榜 -->
+        <view class="hotContainer">
+            <view class="title">热搜榜</view>
+            <view class="hotList">
+                <view class="hotItem" wx:for="{{hotList}}" wx:key="index">
+                    <text class="hotNumber">{{index+1}}</text>
+                    <text class="hotName">{{item.searchWord}}</text>
+                    <image class="{{item.iconType===5?'hotIcon5':'hotIcon1'}}" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}" />
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
